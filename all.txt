@@ -1,269 +1,223 @@
-# Step 1: Login as non-root user
-whoami  
+##first to do
 
-# Step 2:
-sudo adduser scottthomson
+su -
+your password
 
-# Step 3: 
-sudo usermod -aG sudo scottthomson
+sudo usermod -aG sudo your username
 
-# Step 4: Sudo privileges test 
-sudo whoami 
+#now log as a user with sudo group
 
+su youre username
+
+=========================================
+
+1.2 User Management
+
+bash
+
+Copy
+
+Download
+# Open the terminal and log in as a non-root user
+sudo adduser "Scott Thomson"
+
+# Add the user to the sudoers group
+sudo usermod -aG sudo "Scott Thomson"
+
+# Test sudo privileges
+sudo apt update
+Task 2 - Process & Service Management
 
 2.1 Basic Process Management
-bash
-# Step 1: Child process (Bash) start 
+
 bash
 
-# Step 2: New terminal tab 
-# 
+Copy
 
-# Step 3: List processes in verbose mode
+Download
+# Start a child process
+bash
+
+# Show process list with more information
 ps aux | grep bash
-# SCREENSHOT 1
 
-# Step 4: Show Parent Process ID
-# 
+# Show the Parent Process ID
 echo $PPID
-# SCREENSHOT 2
 
-# Step 5: Process kill 
-#  terminal 
-exit
-# 
-
-
-
-
+# Kill a process
+kill [PID]
 2.2 Advanced Process Management
+
 bash
-# Step 1: Pseudo process create 
-yes "This is a test process" &
-# SCREENSHOT 3
 
-# Step 2: 
-pgrep yes
+Copy
 
-# Step 3: Priority set (-16)
+Download
+# Create a pseudo process
+yes "hello" &
+
+# Set the priority
 sudo renice -16 $(pgrep yes)
-# SCREENSHOT 4
 
-# Step 4: Highest priority processes 
+# Show the highest priority processes
 ps -eo pid,ppid,ni,cmd --sort=-ni | head -10
-# SCREENSHOT 5
 
-# Step 5: Process kill gently
+# Gently kill the process
 killall yes
-# SCREENSHOT 6
-
-
-
-
 2.3 Service Management
+
 bash
-# Step 1: Running services filter
+
+Copy
+
+Download
+# Filter running services
 systemctl list-units --type=service --state=running
-# SCREENSHOT 7
 
-# Step 2: Networking service status
+# Check networking service status
 systemctl status networking
-# SCREENSHOT 8
 
-# Step 3: Disable and enable service
+# Disable and enable a service
 sudo systemctl disable networking
 sudo systemctl enable networking
-# SCREENSHOT 9
 
-# Step 4: Stop service and set to start at boot
+# Stop a service and set it to start at boot
 sudo systemctl stop networking
 sudo systemctl enable networking
-# SCREENSHOT 10
 
-# Step 5: Restart service
+# Restart a service
 sudo systemctl restart networking
-# SCREENSHOT 11
+Task 3 - Network Configuration
 
-
-
-
-TASK 3 - Network Configuration
 3.1 Basic Network Management
+
 bash
-# Step 1: IP configuration in 2 tools
+
+Copy
+
+Download
+# Show IP configuration using 2 tools
 ip addr show
-# SCREENSHOT 12
 ifconfig
-# SCREENSHOT 13
 
-# Step 2: Interface shutdown 
+# Shut down an interface
 sudo ip link set eth0 down
-# SCREENSHOT 14
 
-# Step 3: Static IP set 
+# Set a static IP
 sudo ip addr add 192.168.1.100/24 broadcast 192.168.1.255 dev eth0
-# SCREENSHOT 15
 
-# Step 4: MAC address change 
+# Change the MAC address
 sudo ip link set dev eth0 address 00:11:22:33:44:55
-# SCREENSHOT 16
 
-# Step 5: Interface bring up
+# Bring the interface up
 sudo ip link set eth0 up
-# SCREENSHOT 17
 
-# Step 6: DNS change 
+# Change DNS
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
-# SCREENSHOT 18
+3.2 Advanced Network Configuration
 
-# Step 7: Restart networking service
-sudo systemctl restart networking
-# SCREENSHOT 19
-3.2 Advanced Network with nmcli
 bash
-# Step 1: Show connections/device information
+
+Copy
+
+Download
+# Use nmcli utilities
 nmcli device show
-# SCREENSHOT 20
+nmcli connection show
 
-# Step 2: Disable wired connection
+# Disable a wired connection
 nmcli connection down "Wired connection 1"
-# SCREENSHOT 21
 
-# Step 3: Show connection settings
-nmcli connection show "Wired connection 1"
-# SCREENSHOT 22
-
-# Step 4: Change DNS to 8.8.8.8
+# Change DNS
 nmcli connection modify "Wired connection 1" ipv4.dns "8.8.8.8"
-# SCREENSHOT 23
 
-# Step 5: Enable wired connection
+# Enable the connection
 nmcli connection up "Wired connection 1"
-# SCREENSHOT 24
-
-# Step 6: Show IPv4 information
-nmcli connection show "Wired connection 1" | grep ipv4
-# SCREENSHOT 25
 3.3 Text & File Management
+
 bash
-# Step 1: Print text and pipe to file
+
+Copy
+
+Download
+# Pipe text to a file
 echo "Linux is The Best" | sudo tee /tmp/printtext.txt
-# SCREENSHOT 26
 
-# Step 2: Edit file and add line
-sudo nano /tmp/printtext.txt
-# Add this line: "Linus Torvalds is A Rock Star"
-# Ctrl + X, Y, Enter to save
-# SCREENSHOT 27
-
-# Step 3: Add 3rd line without editor
+# Append a line using a command
 echo "Pingu Rocks the Scene of Linux" | sudo tee -a /tmp/printtext.txt
-# SCREENSHOT 28
 
-# Step 4: Rename file
+# Rename a file
 sudo mv /tmp/printtext.txt /tmp/editedtext.txt
-# SCREENSHOT 29
 
-# Step 5: Create directory
+# Directory operations
 sudo mkdir /tmp/edited
-# SCREENSHOT 30
-
-# Step 6: Copy file to new directory
 sudo cp /tmp/editedtext.txt /tmp/edited/
-# SCREENSHOT 31
-
-# Step 7: Delete original file
 sudo rm /tmp/editedtext.txt
-# SCREENSHOT 32
 
-# Step 8: Create empty file
+# Create an empty file and move it
 sudo touch /tmp/edited/empty.txt
-# SCREENSHOT 33
-
-# Step 9: Move empty file to /tmp
 sudo mv /tmp/edited/empty.txt /tmp/
-# SCREENSHOT 34
 
-# Step 10: Remove directory and contents
+# Remove a directory with its contents
 sudo rm -r /tmp/edited
-# SCREENSHOT 35
-📁 TASK 4 - Permissions & CLI
+Task 4 - Permissions & CLI Processes
+
 4.1 File Permissions
+
 bash
-# Step 1: File information display
+
+Copy
+
+Download
+# Display file information
 ls -la /etc/resolv.conf
-# SCREENSHOT 36
-
-# Step 2: Detailed file information
 stat /etc/resolv.conf
-# SCREENSHOT 37
 
-# Step 3: Create directory with spaces
+# Create a directory with spaces in the name
 mkdir "/tmp/Long Live Linux"
-# SCREENSHOT 38
 
-# Step 4: List /etc/ directory in verbose with KB
-ls -lh /etc/ | head -20
-# SCREENSHOT 39
+# List directory contents with sizes in KB
+ls -lh /etc/
 
-# Step 5: Find files starting with "serv"
-find /etc/ -name "serv*" 2>/dev/null | head -10
-# SCREENSHOT 40
+# Find files starting with "serv"
+find /etc/ -name "serv*"
 
-# Step 6: Create two empty files
+# Create empty files
 touch "/tmp/Long Live Linux/filemode1.txt" "/tmp/Long Live Linux/filemode2.txt"
-# SCREENSHOT 41
 
-# Step 7: Deny read access to current user
+# Change permissions
 chmod u-r "/tmp/Long Live Linux/filemode1.txt"
-# SCREENSHOT 42
-
-# Step 8: Set execute access
 chmod u+x "/tmp/Long Live Linux/filemode2.txt"
-# SCREENSHOT 43
-
-# Step 9: Change ownership to root
 sudo chown root "/tmp/Long Live Linux/filemode2.txt"
-# SCREENSHOT 44
-
-# Step 10: Change group to root
 sudo chgrp root "/tmp/Long Live Linux/filemode1.txt"
-# SCREENSHOT 45
 4.2 CLI Text Processing
+
 bash
-# Step 1: Display text and count words
-echo "The Quick Brown Fox Jumped Over The Lazy Dog" | tee >(wc -w)
-# SCREENSHOT 46
 
-# Step 2: Find long text file and show first/last 15 lines
-long_file=$(find /usr/share -name "*.txt" -type f 2>/dev/null | head -1)
-echo "Selected file: $long_file"
-head -15 "$long_file"
-echo "--- LAST 15 LINES ---"
-tail -15 "$long_file"
-# SCREENSHOT 47
+Copy
 
-# Step 3: Last 5 lines with numbering
-tail -5 "$long_file" | nl
-# SCREENSHOT 48
+Download
+# Display text with word count
+echo "The Quick Brown Fox Jumped Over The Lazy Dog" | wc -w
 
-# Step 4: Search word "the" with line numbers
-grep -n -i "the" "$long_file" | head -10
-# SCREENSHOT 49
+# Find a long text file and display it
+find /usr/share -name "*.txt" -type f | head -1
+file=$(find /usr/share -name "*.txt" -type f | head -1)
+head -15 "$file" && tail -15 "$file"
 
-# Step 5: Search and replace display
-sed 's/the/THE/g' "$long_file" | head -15
-# SCREENSHOT 50
+# Show last 5 lines with line numbering
+tail -5 "$file" | nl
 
-# Step 6: Display system information
-echo "=== System Information ==="
+# Search and replace display
+grep -n "the" "$file"
+sed 's/the/THE/g' "$file"
+
+# System information
 uname -a
-echo "=== OS Distribution ==="
 lsb_release -a
-echo "=== Hostname Info ==="
 hostnamectl
-# SCREENSHOT 51
+
 
 
 
