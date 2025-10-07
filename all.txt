@@ -93,8 +93,11 @@ sudo ip link set eth0 up
 # Change DNS
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
-3.2 Advanced Network Configuration
 
+#network restart 
+systemctl restart networking
+
+3.2 Advanced Network Configuration
 
 # Use nmcli utilities
 nmcli device show
@@ -179,6 +182,7 @@ sed 's/the/THE/g' "$file"
 uname -a
 lsb_release -a
 hostnamectl
+
 
 
 
