@@ -75,7 +75,8 @@ Task 3 - Network Configuration
 
 # Show IP configuration using 2 tools
 ip addr show
-ifconfig
+ip a
+hostname -i
 
 # Shut down an interface
 sudo ip link set eth0 down
@@ -178,6 +179,7 @@ sed 's/the/THE/g' "$file"
 uname -a
 lsb_release -a
 hostnamectl
+
 
 
 
