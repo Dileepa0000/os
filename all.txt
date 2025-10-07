@@ -1,57 +1,55 @@
-# Step 1: Login as non-root user (automatically වෙලා ඇති)
-whoami  # ඔයාගේ user name එක check කරගන්න
+# Step 1: Login as non-root user
+whoami  
 
-# Step 2: Scott Thomson නම් user එකක් add කරන්න
+# Step 2:
 sudo adduser scottthomson
 
-# Step 3: ඔහුව sudoers group එකට add කරන්න  
+# Step 3: 
 sudo usermod -aG sudo scottthomson
 
-# Step 4: Sudo privileges test කරන්න
-sudo whoami  # එබූ විට password ඇහෙනවා, ඔබේ password දෙන්න
-# "root" කියලා output එන්න ඕනේ
-
+# Step 4: Sudo privileges test 
+sudo whoami 
 
 
 2.1 Basic Process Management
 bash
-# Step 1: Child process (Bash) start කරන්න
+# Step 1: Child process (Bash) start 
 bash
 
-# Step 2: New terminal tab එක open කරන්න (Ctrl + Shift + T)
-# හෝ new terminal window එක open කරන්න
+# Step 2: New terminal tab 
+# 
 
 # Step 3: List processes in verbose mode
 ps aux | grep bash
 # SCREENSHOT 1
 
 # Step 4: Show Parent Process ID
-# අලුත් terminal එකේ මේ command ටයිප් කරන්න:
+# 
 echo $PPID
 # SCREENSHOT 2
 
-# Step 5: Process kill කරන්න
-# මුල් terminal එකට ගිහින්:
+# Step 5: Process kill 
+#  terminal 
 exit
-# හෝ kill command එක use කරන්න
+# 
 
 
 
 
 2.2 Advanced Process Management
 bash
-# Step 1: Pseudo process create කරන්න
+# Step 1: Pseudo process create 
 yes "This is a test process" &
 # SCREENSHOT 3
 
-# Step 2: Process ID එක check කරගන්න
+# Step 2: 
 pgrep yes
 
-# Step 3: Priority set කරන්න (-16)
+# Step 3: Priority set (-16)
 sudo renice -16 $(pgrep yes)
 # SCREENSHOT 4
 
-# Step 4: Highest priority processes list කරන්න
+# Step 4: Highest priority processes 
 ps -eo pid,ppid,ni,cmd --sort=-ni | head -10
 # SCREENSHOT 5
 
@@ -64,7 +62,7 @@ killall yes
 
 2.3 Service Management
 bash
-# Step 1: Running services filter කරන්න
+# Step 1: Running services filter
 systemctl list-units --type=service --state=running
 # SCREENSHOT 7
 
@@ -98,15 +96,15 @@ ip addr show
 ifconfig
 # SCREENSHOT 13
 
-# Step 2: Interface shutdown (eth0 එකට පක්ෂපාතී වන්න)
+# Step 2: Interface shutdown 
 sudo ip link set eth0 down
 # SCREENSHOT 14
 
-# Step 3: Static IP set කරන්න
+# Step 3: Static IP set 
 sudo ip addr add 192.168.1.100/24 broadcast 192.168.1.255 dev eth0
 # SCREENSHOT 15
 
-# Step 4: MAC address change කරන්න  
+# Step 4: MAC address change 
 sudo ip link set dev eth0 address 00:11:22:33:44:55
 # SCREENSHOT 16
 
@@ -114,7 +112,7 @@ sudo ip link set dev eth0 address 00:11:22:33:44:55
 sudo ip link set eth0 up
 # SCREENSHOT 17
 
-# Step 6: DNS change කරන්න
+# Step 6: DNS change 
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf
 # SCREENSHOT 18
@@ -153,7 +151,7 @@ bash
 echo "Linux is The Best" | sudo tee /tmp/printtext.txt
 # SCREENSHOT 26
 
-# Step 2: Edit file and add line (nano editor use කරන්න)
+# Step 2: Edit file and add line
 sudo nano /tmp/printtext.txt
 # Add this line: "Linus Torvalds is A Rock Star"
 # Ctrl + X, Y, Enter to save
@@ -266,6 +264,7 @@ lsb_release -a
 echo "=== Hostname Info ==="
 hostnamectl
 # SCREENSHOT 51
+
 
 
 
